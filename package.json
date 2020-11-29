@@ -10,9 +10,13 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "autoprefixer": "^10.0.4",
+    "postcss": "^8.1.10",
+    "postcss-cli": "^8.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
+    "tailwindcss": "^2.0.1",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
   },
@@ -20,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/assets/css/tailwind.css -o src/assets/css/main.css",
+    "watch:css": "postcss src/assets/css/tailwind.css -o src/assets/css/main.css --watch"
   },
   "eslintConfig": {
     "extends": [
