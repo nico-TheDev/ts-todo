@@ -18,16 +18,37 @@ module.exports = {
                 veryDarkGrayishBlueDT: "hsl(233, 14%, 35%)",
             },
             backgroundImage: (theme) => ({
-                checkBg:
-                    "linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)",
+                checkBg: `linear-gradient(to left,hsl(192, 100%, 67%) , hsl(280, 87%, 65%))`,
             }),
             fontFamily: {
                 main: ["Josefin Sans", "serif"],
             },
+            fontSize: {
+                mainSize: "18px",
+            },
+            height: {
+                one: "10vh",
+                two: "20vh",
+                three: "30vh",
+                four: "40vh",
+            },
+            width: {
+                90: "90%",
+                80: "80%",
+            },
+            letterSpacing: {
+                one: "0.5rem",
+                two: "1rem",
+                three: "1.25rem",
+            },
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            borderWidth: ["first", "last"],
+            borderRadius: ["first", "last"],
+            borderColor: ["first", "last"],
+        },
     },
     plugins: [],
 };
