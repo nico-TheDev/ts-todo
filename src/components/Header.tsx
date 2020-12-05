@@ -4,7 +4,7 @@ interface IProps {}
 
 const Header: React.FC<IProps> = () => {
     return (
-        <div className="h-three bg-checkBg  text-white py-12">
+        <div className="h-three bg-checkBg  text-white py-12 pb-12">
             <div className="w-90 mx-auto">
                 <div className=" mb-6 flex justify-between items-center w-full">
                     <h1 className="text-2xl tracking-one font-bold">TODO</h1>
@@ -20,11 +20,11 @@ const Header: React.FC<IProps> = () => {
                         </svg>
                     </button>
                 </div>
-                <form className="flex items-center bg-white py-2 px-4 rounded-md">
-                    <span className="w-4 h-4 border border-primaryBrightBlue rounded-full mr-4" />
+                <form className="flex items-center bg-white p-4 rounded-md">
+                    <span className="w-6 h-6 border border-primaryBrightBlue rounded-full mr-4" />
                     <input
                         type="text"
-                        className="font-light text-lg text-gray-900 flex-1 h-full"
+                        className="font-light text-sm text-gray-900 flex-1 h-full"
                         placeholder="Create a new todo..."
                     />
                 </form>
