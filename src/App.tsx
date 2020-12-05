@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "./components/Header";
+import Sorter from "./components/Sorter";
 import TodoList from "./components/TodoList";
 
 interface IProps {}
@@ -13,9 +14,13 @@ interface Todo {
 const App: React.FC<IProps> = () => {
     const [todos, setTodos] = useState<Todo[] | null | undefined>();
     return (
-        <div className="font-main text-mainSize">
+        <div className="font-main text-mainSize bg-gray-200 overflow-x-hidden min-h-screen">
             <Header />
             <TodoList />
+            <Sorter />
+            <p className="mt-16 text-gray-500 text-sm text-center">
+                Drag and drop to reoder list
+            </p>
         </div>
     );
 };
