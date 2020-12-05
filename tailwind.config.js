@@ -29,7 +29,7 @@ module.exports = {
             height: {
                 one: "10vh",
                 two: "20vh",
-                three: "30vh",
+                three: "34vh",
                 four: "40vh",
             },
             width: {
