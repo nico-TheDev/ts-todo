@@ -8,8 +8,8 @@ interface IProps {
 
 const Todo: React.FC<IProps> = () => {
     return (
-        <li className="flex items-center text-lg w-90 bg-white shadow-md p-4 border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900">
-            <button className="group border border-primaryBrightBlue mr-3 text-white rounded-full overflow-hidden">
+        <li className="flex items-center text-lg w-90 bg-white shadow-md p-4 border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT">
+            <button className="group border border-darkGrayishBlueLT mr-3 text-white rounded-full overflow-hidden">
                 <span className="w-6 h-6  flex justify-center items-center cursor-pointer bg-checkBg opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const Todo: React.FC<IProps> = () => {
                     </svg>
                 </span>
             </button>
-            <p className="line-through text-gray-500 text-sm">
+            <p className="line-through text-gray-500 text-sm dark:text-lightGrayBlueDT">
                 Hello Typescript!
             </p>
             <button className="ml-auto">
