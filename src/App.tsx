@@ -13,9 +13,15 @@ interface Todo {
 
 const App: React.FC<IProps> = () => {
     const [todos, setTodos] = useState<Todo[] | null | undefined>();
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
     return (
-        <div className="font-main text-mainSize bg-gray-200 overflow-x-hidden min-h-screen">
-            <Header />
+        <div
+            className={`font-main text-mainSize bg-gray-200 overflow-x-hidden min-h-screen ${
+                isDarkMode ? "dark bg-veryDarkBlueDT" : ""
+            }`}
+        >
+            <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             <TodoList />
             <Sorter />
             <p className="mt-16 text-gray-500 text-sm text-center">
