@@ -5,8 +5,8 @@ import TodoList from "./components/TodoList";
 
 interface IProps {}
 
-interface Todo {
-    id: string;
+export interface Todo {
+    id: string | number;
     task: string;
     isCompleted: boolean;
 }
@@ -22,7 +22,7 @@ const App: React.FC<IProps> = () => {
             }`}
         >
             <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-            <TodoList />
+            <TodoList setTodos={setTodos} todos={todos} />
             <Sorter />
             <p className="mt-16 text-gray-500 text-sm text-center">
                 Drag and drop to reoder list
