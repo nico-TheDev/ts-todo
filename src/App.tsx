@@ -12,7 +12,11 @@ export interface Todo {
 }
 
 const App: React.FC<IProps> = () => {
-    const [todos, setTodos] = useState<Todo[] | null | undefined>();
+    const [todos, setTodos] = useState([
+        { id: 0, task: "Hello World 1", isCompleted: false },
+        { id: 1, task: "Hello World 2", isCompleted: false },
+        { id: 2, task: "Hello World 3", isCompleted: false },
+    ]);
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
     return (

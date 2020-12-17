@@ -1,31 +1,42 @@
-import React, { useState, useRef, useEffect, RefObject } from "react";
-import { motion, useMotionValue } from "framer-motion";
-import { findIndex, Position } from "../util/findIndex";
+// @ts-nocheck
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { Todo as TodoI } from "../App";
-import { HTMLMotionComponents } from "framer-motion/types/render/dom/types";
+import { useMeasurePosition } from "../hooks/useMeasurePosition";
 interface IProps {
     todo: TodoI;
     i: number;
-    setPosition: (i: number, offset: Position) => Position;
-    moveItem: (i: number, dragOffset: number) => void;
+    updatePositon: any;
+    updateOrder: any;
+    height: number;
 }
 
-const Todo: React.FC<IProps> = ({ i, setPosition, todo }) => {
+const Todo: React.FC<IProps> = ({
+    i,
+    todo,
+    updatePosition,
+    updateOrder,
+    height,
+}) => {
     const [isDragging, setIsDragging] = useState<boolean>(false);
-    const ref = useRef(null) as any; // for now
-    const dragOriginY = useMotionValue(0);
-
-    useEffect(() => {
-        setPosition(i, {
-            height: ref.current.offsetHeight,
-            top: ref.current.offsetTop,
-        });
-    });
+    const ref = useMeasurePosition((pos) => updatePosition(i, pos)); // for now
 
     return (
         <motion.li
-            className="flex items-center text-lg w-90 bg-white shadow-md p-4 border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT cursor-move"
+            className="flex items-center text-lg w-90 bg-white shadow-md p-4 border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT cursor-move hover:bg-gray-400"
             ref={ref}
+            style={{
+                height,
+                zIndex: isDragging ? 3 : 1,
+            }}
+            layout
+            initial={false}
+            drag="y"
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={() => setIsDragging(false)}
+            onViewportBoxUpdate={(_viewportBox, delta) => {
+                isDragging && updateOrder(1, delta.y.translate);
+            }}
         >
             <button className="group border border-darkGrayishBlueLT mr-3 text-white rounded-full overflow-hidden">
                 <span className="w-6 h-6  flex justify-center items-center cursor-pointer bg-checkBg opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -45,7 +56,7 @@ const Todo: React.FC<IProps> = ({ i, setPosition, todo }) => {
                 </span>
             </button>
             <p className="line-through text-gray-500 text-sm dark:text-lightGrayBlueDT">
-                Hello Typescript!
+                {todo.task}
             </p>
             <button className="ml-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
