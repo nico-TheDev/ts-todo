@@ -1,42 +1,56 @@
 // @ts-nocheck
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useMotionValue } from "framer-motion";
 import { Todo as TodoI } from "../App";
-import { useMeasurePosition } from "../hooks/useMeasurePosition";
+import { Position } from "../util/findIndex";
 interface IProps {
     todo: TodoI;
     i: number;
-    updatePositon: any;
-    updateOrder: any;
-    height: number;
+    setPosition: (i: number, offset: Position) => Position;
+    moveItem: (i: number, dragOffset: number) => void;
 }
 
-const Todo: React.FC<IProps> = ({
-    i,
-    todo,
-    updatePosition,
-    updateOrder,
-    height,
-}) => {
+const onTop = { zIndex: 1 };
+const flat = {
+    zIndex: 0,
+    transition: { delay: 0.3 },
+};
+
+const Todo: React.FC<IProps> = ({ i, todo, setPosition, moveItem }) => {
     const [isDragging, setIsDragging] = useState<boolean>(false);
-    const ref = useMeasurePosition((pos) => updatePosition(i, pos)); // for now
+    const ref = useRef(null); // for now
+
+    const dragOriginY = useMotionValue(0);
+
+    useEffect(() => {
+        setPosition(i, {
+            height: ref.current.offsetHeight,
+            top: ref.current.offsetTop,
+        });
+    }, []);
 
     return (
         <motion.li
-            className="flex items-center text-lg w-90 bg-white shadow-md p-4 border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT cursor-move hover:bg-gray-400"
             ref={ref}
-            style={{
-                height,
-                zIndex: isDragging ? 3 : 1,
-            }}
-            layout
             initial={false}
+            animate={isDragging ? onTop : flat}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 1.1 }}
             drag="y"
+            dragOriginY={dragOriginY}
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={1}
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
-            onViewportBoxUpdate={(_viewportBox, delta) => {
-                isDragging && updateOrder(1, delta.y.translate);
+            onDrag={(e, { point }) => moveItem(i, point.y)}
+            positionTransition={({ delta }) => {
+                if (isDragging) {
+                    dragOriginY.set(dragOriginY.get() + delta.y);
+                }
+
+                return !isDragging;
             }}
+            className="flex items-center text-lg w-90 bg-white shadow-md p-4 border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT"
         >
             <button className="group border border-darkGrayishBlueLT mr-3 text-white rounded-full overflow-hidden">
                 <span className="w-6 h-6  flex justify-center items-center cursor-pointer bg-checkBg opacity-0 group-hover:opacity-100 transition-all duration-300">

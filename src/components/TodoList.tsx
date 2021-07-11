@@ -1,7 +1,9 @@
 // @ts-nocheck
-import React from "react";
+import React, { useRef } from "react";
+import move from "array-move";
+
 import { Todo as TodoI } from "../App";
-import { usePositionReorder } from "../hooks/usePositionReorder";
+import { Position, findIndex } from "../util/findIndex";
 import Todo from "./Todo";
 
 interface IProps {
@@ -11,17 +13,24 @@ interface IProps {
 
 const items = [50, 50, 50];
 const TodoList: React.FC<IProps> = ({ setTodos, todos }) => {
-    const [order, updatePosition, updateOrder] = usePositionReorder(items);
+    const positions = useRef<Position[]>([]).current;
+    const setPosition = (i: number, offset: Position) =>
+        (positions[i] = offset);
+
+    const moveItem = (i: number, dragOffset: number) => {
+        const targetIndex = findIndex(i, dragOffset, positions);
+        if (targetIndex !== i) setTodos(move(todos, i, targetIndex));
+    };
+
     return (
         <ul className="grid justify-items-center transform -translate-y-6 ">
-            {order.map((height, i) => (
+            {todos.map((_, i) => (
                 <Todo
                     i={i}
                     key={todos[i].id}
-                    height={height}
-                    updatePosition={updatePosition}
-                    updateOrder={updateOrder}
                     todo={todos[i]}
+                    setPosition={setPosition}
+                    moveItem={moveItem}
                 />
             ))}
             <li className="text-gray-400 flex justify-between items-center bg-white text-sm p-4 last:rounded-bl-md last:rounded-br-md shadow-md w-90 dark:bg-veryDarkDesaBlueDT dark:text-lightGrayBlueDT">
