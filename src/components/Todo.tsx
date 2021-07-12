@@ -4,13 +4,67 @@ import { motion } from "framer-motion";
 import { Todo as TodoI } from "../App";
 interface IProps {
     todo: TodoI;
+    setTodos: React.Dispatch<
+        React.SetStateAction<
+            {
+                id: number;
+                task: string;
+                isCompleted: boolean;
+            }[]
+        >
+    >;
+    todos: TodoI[];
 }
 
-const Todo: React.FC<IProps> = ({ todo }) => {
+const Todo: React.FC<IProps> = ({ todo, setTodos, todos }) => {
+    const [isComplete, setIsComplete] = useState(todo.isCompleted);
+
+    const handleCheck = () => {
+        setIsComplete(!isComplete);
+        setTodos(
+            todos.map((item) => {
+                if (item.id === todo.id) {
+                    return {
+                        ...todo,
+                        isCompleted: isComplete,
+                    };
+                }
+                return item;
+            })
+        );
+    };
+
+    const handleDelete = () => {
+        let targetIndex: number;
+        const todosCopy = [...todos];
+
+        todos.forEach((item, i) => {
+            if (item.id === todo.id) {
+                targetIndex = i;
+            }
+        });
+
+        todosCopy.splice(targetIndex, 1);
+
+        setTodos(todosCopy);
+    };
+
     return (
-        <li className="flex items-center text-lg w-90 p-4 bg-white shadow-md border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT relative">
-            <button className="group border border-darkGrayishBlueLT mr-3 text-white rounded-full overflow-hidden">
-                <span className="w-6 h-6  flex justify-center items-center cursor-pointer bg-checkBg opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <li
+            className="flex items-center text-lg w-90 p-4 bg-white shadow-md border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT relative
+        "
+        >
+            <button
+                onClick={handleCheck}
+                className="inline-block group border border-darkGrayishBlueLT mr-5 text-white rounded-full overflow-hidden"
+            >
+                <span
+                    className={`w-6 h-6 flex justify-center items-center cursor-pointer bg-checkBg opacity-0  transition-all duration-300 ${
+                        isComplete
+                            ? "opacity-100 group-hover:opacity-0"
+                            : "group-hover:opacity-100"
+                    }`}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="11"
@@ -26,11 +80,23 @@ const Todo: React.FC<IProps> = ({ todo }) => {
                     </svg>
                 </span>
             </button>
-            <p className="text-gray-500 text-sm dark:text-lightGrayBlueDT">
+            <p
+                className={`text-gray-500 text-sm dark:text-lightGrayBlueDT w-full overflow-hidden ${
+                    isComplete && "line-through"
+                }`}
+            >
                 {todo.task}
             </p>
-            <button className="ml-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+            <button
+                className="ml-auto dark:hover:bg-white"
+                onClick={handleDelete}
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    className="fill-current"
+                >
                     <path
                         fill="#494C6B"
                         fill-rule="evenodd"
