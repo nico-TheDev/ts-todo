@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import dayBg from "../assets/images/bg-mobile-light.jpg";
 import darkBg from "../assets/images/bg-mobile-dark.jpg";
+import { Todo } from "../App";
+
 interface IProps {
     isDarkMode: boolean;
     setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+    setTodos: any;
+    todos: Todo[];
 }
 
-const Header: React.FC<IProps> = ({ isDarkMode, setIsDarkMode }) => {
+const Header: React.FC<IProps> = ({
+    isDarkMode,
+    setIsDarkMode,
+    setTodos,
+    todos,
+}) => {
+    const [input, setInput] = useState<string>("");
+
+    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setInput(e.currentTarget.value);
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const newTodos = [...todos];
+        const newTodo: Todo = {
+            id: newTodos.length,
+            task: input,
+            isCompleted: false,
+        };
+        newTodos.push(newTodo);
+        setTodos([...newTodos]);
+        console.log(newTodos);
+
+        // Clear Input
+        setInput("");
+    };
+
     return (
         <div className="h-three bg-checkBg  text-white py-12 pb-12 relative">
             <img
@@ -33,12 +64,17 @@ const Header: React.FC<IProps> = ({ isDarkMode, setIsDarkMode }) => {
                         </svg>
                     </button>
                 </div>
-                <form className="flex items-center bg-white p-4 rounded-md dark:bg-veryDarkDesaBlueDT">
+                <form
+                    className="flex items-center bg-white p-4 rounded-md dark:bg-veryDarkDesaBlueDT"
+                    onSubmit={handleSubmit}
+                >
                     <span className="w-6 h-6 border border-darkGrayishBlueLT rounded-full mr-4" />
                     <input
                         type="text"
                         className="font-light bg-transparent text-sm text-gray-900 flex-1 h-full dark:text-lightGrayBlueDT"
                         placeholder="Create a new todo..."
+                        value={input}
+                        onChange={handleChange}
                     />
                 </form>
             </div>
