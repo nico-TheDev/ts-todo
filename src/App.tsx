@@ -17,7 +17,7 @@ const App: React.FC<IProps> = () => {
         { id: 1, task: "Hello World 2", isCompleted: false },
         { id: 2, task: "Hello World 3", isCompleted: false },
     ]);
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
     return (
         <div
