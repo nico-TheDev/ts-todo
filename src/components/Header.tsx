@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import dayBg from "../assets/images/bg-mobile-light.jpg";
 import darkBg from "../assets/images/bg-mobile-dark.jpg";
 import { Todo } from "../App";
@@ -26,7 +28,7 @@ const Header: React.FC<IProps> = ({
         e.preventDefault();
         const newTodos = [...todos];
         const newTodo: Todo = {
-            id: newTodos.length,
+            id: uuidv4(),
             task: input,
             isCompleted: false,
         };
