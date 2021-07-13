@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Sorter from "./components/Sorter";
 import TodoList from "./components/TodoList";
@@ -12,15 +12,26 @@ export interface Todo {
 }
 
 const App: React.FC<IProps> = () => {
-    const [todos, setTodos] = useState([
-        { id: 0, task: "Hello World 1", isCompleted: false },
-        { id: 1, task: "Hello World 2", isCompleted: true },
-        { id: 2, task: "Hello World 3", isCompleted: true },
-        { id: 3, task: "Hello World 4", isCompleted: false },
-        { id: 4, task: "Hello World 5", isCompleted: false },
-        { id: 5, task: "Hello World 6", isCompleted: false },
-    ]);
+    const [todos, setTodos] = useState<Todo[]>([]);
+    const [current, setCurrent] = useState("all");
+    const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+
+    useEffect(() => {
+        let filtered: Todo[] = [];
+        console.log("RUNNING");
+        if (current === "all") {
+            filtered = [...todos];
+        }
+        if (current === "active") {
+            filtered = todos.filter((item) => item.isCompleted === false);
+        }
+        if (current === "completed") {
+            filtered = todos.filter((item) => item.isCompleted === true);
+        }
+
+        setFilteredTodos(filtered);
+    }, [current, todos]);
 
     return (
         <div
@@ -34,8 +45,17 @@ const App: React.FC<IProps> = () => {
                 setTodos={setTodos}
                 todos={todos}
             />
-            <TodoList setTodos={setTodos} todos={todos} />
-            <Sorter todos={todos} setTodos={setTodos} />
+            <TodoList
+                setTodos={setTodos}
+                todos={filteredTodos}
+                realList={todos}
+            />
+            <Sorter
+                current={current}
+                setCurrent={setCurrent}
+                setTodos={setTodos}
+                filteredTodos={filteredTodos}
+            />
             <p className="mt-16 text-gray-500 text-sm text-center">
                 Drag and drop to reoder list
             </p>
