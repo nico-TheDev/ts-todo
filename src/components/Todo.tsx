@@ -43,12 +43,12 @@ const Todo: React.FC<IProps> = ({ todo, setTodos, todos }) => {
 
     return (
         <li
-            className="flex items-center text-lg w-90 p-4 bg-white shadow-md border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT relative
+            className="flex items-center text-lg w-90 p-4 bg-white shadow-md border-b border-gray-300 first:rounded-tl-md first:rounded-tr-md text-gray-900 dark:bg-veryDarkDesaBlueDT dark:border-darkGrayishBlueDT relative lg:w-full
         "
         >
             <button
                 onClick={handleCheck}
-                className="inline-block group border border-darkGrayishBlueLT mr-5 text-white rounded-full overflow-hidden"
+                className="inline-block group border border-darkGrayishBlueLT mr-5 text-white rounded-full overflow-hidden w-6 h-6"
             >
                 <span
                     className={`w-6 h-6 flex justify-center items-center cursor-pointer bg-checkBg opacity-0  transition-all duration-300 ${

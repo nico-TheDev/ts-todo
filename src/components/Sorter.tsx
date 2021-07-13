@@ -9,7 +9,7 @@ interface IProps {
 
 const Sorter: React.FC<IProps> = ({ setCurrent, current }) => {
     return (
-        <div className="flex justify-around items-center w-90 bg-white shadow-md rounded-md mx-auto p-4  text-gray-500 text-center text-sm dark:bg-veryDarkDesaBlueDT dark:text-lightGrayBlueDT">
+        <div className="flex justify-around items-center w-90 bg-white shadow-md rounded-md mx-auto p-4  text-gray-500 text-center text-sm dark:bg-veryDarkDesaBlueDT dark:text-lightGrayBlueDT  lg:w-96">
             <button
                 onClick={() => setCurrent("all")}
                 className={`${current === "all" && "text-blue-500"}`}

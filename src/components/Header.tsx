@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import dayBg from "../assets/images/bg-mobile-light.jpg";
 import darkBg from "../assets/images/bg-mobile-dark.jpg";
+import desktopDayBg from "../assets/images/bg-desktop-light.jpg";
+import desktopDarkBg from "../assets/images/bg-desktop-dark.jpg";
 import { Todo } from "../App";
 
 interface IProps {
@@ -45,9 +47,14 @@ const Header: React.FC<IProps> = ({
             <img
                 src={isDarkMode ? darkBg : dayBg}
                 alt="desktop bg background"
-                className="absolute w-full h-full object-cover object-center top-0 left-0"
+                className="absolute w-full h-full object-cover object-center top-0 left-0 lg:hidden"
             />
-            <div className="w-90 mx-auto relative">
+            <img
+                src={isDarkMode ? desktopDarkBg : desktopDayBg}
+                alt="desktop bg background"
+                className="absolute w-full h-full object-cover object-center top-0 left-0 hidden lg:block"
+            />
+            <div className="w-90 mx-auto relative lg:w-96">
                 <div className=" mb-6 flex justify-between items-center w-full">
                     <h1 className="text-2xl tracking-one font-bold">TODO</h1>
                     <button

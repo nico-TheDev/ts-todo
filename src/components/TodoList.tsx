@@ -18,7 +18,7 @@ const TodoList: React.FC<IProps> = ({ setTodos, todos, realList }) => {
     };
 
     return (
-        <ul className="grid justify-items-center transform -translate-y-12 relative">
+        <ul className="grid justify-items-center transform -translate-y-12 relative  lg:w-96 lg:-translate-x-1/2 lg:relative lg:left-1/2">
             {todos.map((todo, i) => (
                 <Todo
                     i={i}
@@ -28,7 +28,7 @@ const TodoList: React.FC<IProps> = ({ setTodos, todos, realList }) => {
                     todos={todos}
                 />
             ))}
-            <li className="text-gray-400 flex justify-between items-center bg-white text-sm p-4 last:rounded-bl-md last:rounded-br-md shadow-md w-90 dark:bg-veryDarkDesaBlueDT dark:text-lightGrayBlueDT">
+            <li className="text-gray-400 flex justify-between items-center bg-white text-sm p-4 last:rounded-bl-md last:rounded-br-md shadow-md w-90 dark:bg-veryDarkDesaBlueDT dark:text-lightGrayBlueDT lg:w-full">
                 <span className="">{todos.length} items left</span>
                 <button className="" onClick={handleClear}>
                     Clear Completed
