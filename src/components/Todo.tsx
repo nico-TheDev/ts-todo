@@ -4,15 +4,7 @@ import { motion } from "framer-motion";
 import { Todo as TodoI } from "../App";
 interface IProps {
     todo: TodoI;
-    setTodos: React.Dispatch<
-        React.SetStateAction<
-            {
-                id: number;
-                task: string;
-                isCompleted: boolean;
-            }[]
-        >
-    >;
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
     todos: TodoI[];
 }
 
@@ -21,17 +13,17 @@ const Todo: React.FC<IProps> = ({ todo, setTodos, todos }) => {
 
     const handleCheck = () => {
         setIsComplete(!isComplete);
-        setTodos(
-            todos.map((item) => {
-                if (item.id === todo.id) {
-                    return {
-                        ...todo,
-                        isCompleted: isComplete,
-                    };
-                }
-                return item;
-            })
-        );
+        const checked = todos.map((item) => {
+            if (item.id === todo.id) {
+                return {
+                    ...todo,
+                    isCompleted: !isComplete,
+                };
+            }
+            return item;
+        });
+
+        setTodos(checked);
     };
 
     const handleDelete = () => {
