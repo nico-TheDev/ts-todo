@@ -73,7 +73,7 @@ const Todo: React.FC<IProps> = ({ todo, setTodos, todos }) => {
                 </span>
             </button>
             <p
-                className={`text-gray-500 text-sm dark:text-lightGrayBlueDT w-full overflow-hidden ${
+                className={`text-gray-500 text-sm dark:text-lightGrayBlueDT w-60 mr-4 overflow-hidden ${
                     isComplete && "line-through"
                 }`}
             >

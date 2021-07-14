@@ -35,6 +35,7 @@ module.exports = {
             width: {
                 90: "90%",
                 80: "80%",
+                30: "30rem",
             },
             letterSpacing: {
                 one: "0.5rem",

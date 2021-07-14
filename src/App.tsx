@@ -49,12 +49,16 @@ const App: React.FC<IProps> = () => {
                 setTodos={setTodos}
                 todos={filteredTodos}
                 realList={todos}
+                current={current}
+                setCurrent={setCurrent}
+                filteredTodos={filteredTodos}
             />
             <Sorter
                 current={current}
                 setCurrent={setCurrent}
                 setTodos={setTodos}
                 filteredTodos={filteredTodos}
+                extraStyle="lg:hidden"
             />
             <p className="mt-16 text-gray-500 text-sm text-center">
                 Drag and drop to reoder list
