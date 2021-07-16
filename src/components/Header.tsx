@@ -35,6 +35,7 @@ const Header: React.FC<IProps> = ({
             isCompleted: false,
         };
         newTodos.push(newTodo);
+        localStorage.setItem("todos", JSON.stringify([...newTodos]));
         setTodos([...newTodos]);
         console.log(newTodos);
 

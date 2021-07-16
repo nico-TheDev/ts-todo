@@ -26,6 +26,7 @@ const TodoList: React.FC<IProps> = ({
 }) => {
     const handleClear = () => {
         setTodos(realList.filter((item) => item.isCompleted === false));
+        localStorage.setItem("todos", JSON.stringify(null));
     };
 
     return (

@@ -12,7 +12,14 @@ export interface Todo {
 }
 
 const App: React.FC<IProps> = () => {
-    const [todos, setTodos] = useState<Todo[]>([]);
+    const [todos, setTodos] = useState<Todo[]>(() => {
+        const target = localStorage.getItem("todos");
+        if (target !== null) {
+            return JSON.parse(target);
+        } else {
+            return [];
+        }
+    });
     const [current, setCurrent] = useState("all");
     const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true);

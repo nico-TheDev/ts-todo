@@ -22,7 +22,7 @@ const Todo: React.FC<IProps> = ({ todo, setTodos, todos }) => {
             }
             return item;
         });
-
+        localStorage.setItem("todos", JSON.stringify(checked));
         setTodos(checked);
     };
 
@@ -37,6 +37,7 @@ const Todo: React.FC<IProps> = ({ todo, setTodos, todos }) => {
         });
 
         todosCopy.splice(targetIndex, 1);
+        localStorage.setItem("todos", JSON.stringify(todosCopy));
 
         setTodos(todosCopy);
     };
